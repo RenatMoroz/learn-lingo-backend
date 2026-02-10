@@ -1,14 +1,14 @@
-import express from "express";
-import serverless from "serverless-http";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+import express from 'express';
+import serverless from 'serverless-http';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
-import { initMongoDB } from "./database/initMongoDb.js";
-import { printRoutes } from "./helpers/printRoutes.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
+import { initMongoDB } from './database/initMongoDb.js';
+import { printRoutes } from './helpers/printRoutes.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
-import router from "./routes/index.js";
-import { requestLogger } from "./middlewares/requestLogger.js";
+import router from './routes/index.js';
+import { requestLogger } from './middlewares/requestLogger.js';
 
 const app = express();
 
@@ -27,8 +27,8 @@ app.use(errorHandler);
 printRoutes(app);
 export const handler = serverless(app);
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`🚀 Express server running on http://localhost:${PORT}`);
   });
