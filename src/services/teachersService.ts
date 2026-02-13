@@ -7,17 +7,19 @@ export const getAllTeachers = async (filters: GetAllTeachersParams) => {
   const { page = 1, perPage = 10 } = filters;
   const offset = (page - 1) * perPage;
   const query: FilterQuery<Teachers> = {};
+  console.log(filters);
+
   if (filters.languages) {
     const values = filters.languages
       .split(',')
-      .map((value) => value.trim())
+      .map(value => value.trim())
       .filter(Boolean);
     query.languages = { $in: values.length ? values : [filters.languages] };
   }
   if (filters.levels) {
     const values = filters.levels
       .split(',')
-      .map((value) => value.trim())
+      .map(value => value.trim())
       .filter(Boolean);
     query.levels = { $in: values.length ? values : [filters.levels] };
   }
