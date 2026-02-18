@@ -1,20 +1,16 @@
-import { Router } from "express";
-import * as authControllers from "../controllers/authController.js";
+import { Router } from 'express';
+import * as authControllers from '../controllers/authController.js';
 
 const router = Router();
 
-router.post("/register", authControllers.registerUserController);
+router.post('/register', authControllers.registerUserController);
 
-router.post("/login", authControllers.loginController);
+router.post('/login', authControllers.loginController);
 
-router.post("/logout", authControllers.logoutController);
+router.post('/logout', authControllers.logoutController);
 
-router.post("/refresh", authControllers.refreshController);
+router.post('/refresh', authControllers.refreshController);
 
-router.post("/reset/request", authControllers.requestResetEmailController);
-
-router.post("/reset/confirm", authControllers.resetPasswordController);
-
-router.post("/confirm", authControllers.confirmEmailController);
+router.get('/me', authControllers.getMeController);
 
 export default router;
