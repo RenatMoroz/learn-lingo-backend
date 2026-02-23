@@ -8,8 +8,8 @@ type RouteLayer = {
 };
 
 export function printRoutes(
-  app: unknown,
-  server = process.env.BACKEND_URL || 'http://localhost:3000',
+  app: Application,
+  server = 'http://localhost:3000',
 ) {
   const stack: RouteLayer[] | undefined = (
     app as unknown as { _router?: { stack?: RouteLayer[] } }
