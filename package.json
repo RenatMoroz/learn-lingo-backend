@@ -1,13 +1,12 @@
 {
-  "name": "aws-node-express-template",
+  "name": "learn-lingo-backend",
   "version": "1.0.0",
-  "description": "Aws Node Express Template",
+  "description": "Learn Lingo Backend",
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec \"ts-node --esm\" src/index.ts",
     "build": "tsc",
-    "start": "npm run build && node dist/index.js",
-    "push": "git add . && git commit -m 'update' && git push",
-    "deploy": "npm run build && sls deploy"
+    "start": "node dist/index.js",
+    "push": "git add . && git commit -m 'update' && git push"
   },
   "keywords": [],
   "author": "Volodymyr Pashchenko",
@@ -22,7 +21,6 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "mongoose": "^8.14.1",
-    "serverless-http": "^3.2.0",
     "useragent": "^2.3.0"
   },
   "devDependencies": {
