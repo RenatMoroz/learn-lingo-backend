@@ -1,4 +1,4 @@
-import { Application } from "express";
+import { Application } from 'express';
 
 type RouteLayer = {
   route?: { path?: string; methods: Record<string, boolean> };
@@ -7,29 +7,34 @@ type RouteLayer = {
   regexp?: RegExp;
 };
 
-export function printRoutes(app: Application, server = "http://localhost:3000") {
-  const stack: RouteLayer[] | undefined = (app as unknown as { _router?: { stack?: RouteLayer[] } })._router?.stack;
+export function printRoutes(
+  app: unknown,
+  server = process.env.BACKEND_URL || 'http://localhost:3000',
+) {
+  const stack: RouteLayer[] | undefined = (
+    app as unknown as { _router?: { stack?: RouteLayer[] } }
+  )._router?.stack;
   if (!stack?.length) {
     return;
   }
 
   console.log(`\n🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺 ROUTES 🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺\n`);
 
-  const walk = (layers: RouteLayer[], prefix = "") => {
-    layers.forEach((layer) => {
+  const walk = (layers: RouteLayer[], prefix = '') => {
+    layers.forEach(layer => {
       if (layer.route?.path) {
         const methods = Object.keys(layer.route.methods)
-          .map((m) => m.toUpperCase())
-          .join(", ")
+          .map(m => m.toUpperCase())
+          .join(', ')
           .padEnd(7);
 
-        const path = `${prefix}${layer.route.path}`.replace(/\/+/g, "/");
+        const path = `${prefix}${layer.route.path}`.replace(/\/+/g, '/');
         console.log(`🔹 ${methods} ${server}${path}`);
-      } else if (layer.name === "router" && layer.handle?.stack) {
+      } else if (layer.name === 'router' && layer.handle?.stack) {
         const str = `${layer.regexp}`
-          .replace("^\\/", "")
-          .replace("?(?=\\/|$)/i", "")
-          .replace("\\/", "/");
+          .replace('^\\/', '')
+          .replace('?(?=\\/|$)/i', '')
+          .replace('\\/', '/');
         const path = str;
         walk(layer.handle.stack, prefix + path);
       }
