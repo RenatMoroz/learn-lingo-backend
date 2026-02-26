@@ -21,5 +21,5 @@ Node.js | Express | TypeScript | MongoDB | Mongoose | Axios | bcrypt | http-erro
 🚀 Live API
 [Learn Lingo Backend](https://learn-lingo-backend-nacn.onrender.com)
 
-📂 Learn Lingo Front-end Repository
+📂 
 [Learn Lingo Front-end Repository](https://github.com/RenatMoroz/Learn-lingo)
