@@ -3,8 +3,11 @@ import type { CognitoAccessTokenPayload } from "aws-jwt-verify/jwt-model";
 import createHttpError from "http-errors";
 import type { RequestHandler } from "express";
 
-import { CLIENT_ID, USER_POOL_ID } from "../helpers/constants.js";
+import { env } from "../utils/env.js";
 import { getUserByCognito } from "../services/userService.js";
+
+const USER_POOL_ID = env("COGNITO_USER_POOL_ID");
+const CLIENT_ID = env("COGNITO_CLIENT_ID");
 
 const verifier = CognitoJwtVerifier.create({
   userPoolId: USER_POOL_ID,
