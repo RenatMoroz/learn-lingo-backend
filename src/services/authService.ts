@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
-import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto';
+import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'crypto';
 import { UserCollection } from '../database/models/user.js';
 import { SessionsCollection } from '../database/models/session.js';
 import { ONE_DAY, ONE_MONTH } from '../helpers/constants.js';
@@ -77,9 +77,14 @@ const createSession = async (userId: string) => {
   };
 };
 
-export const registerUserService = async ({ email, password }: RegisterPayload) => {
+export const registerUserService = async ({
+  email,
+  password,
+}: RegisterPayload) => {
   const normalizedEmail = email.trim().toLowerCase();
-  const existingUser = await UserCollection.findOne({ nickname: normalizedEmail });
+  const existingUser = await UserCollection.findOne({
+    nickname: normalizedEmail,
+  });
 
   if (existingUser) {
     throw createHttpError(409, 'Email already in use');
@@ -122,7 +127,10 @@ export const logoutService = async (sessionId?: string) => {
   return { message: 'Logged out successfully' };
 };
 
-export const refreshService = async ({ sessionId, refreshToken }: RefreshPayload) => {
+export const refreshService = async ({
+  sessionId,
+  refreshToken,
+}: RefreshPayload) => {
   if (!sessionId || !refreshToken) {
     throw createHttpError(401, 'Missing session data');
   }
@@ -160,7 +168,10 @@ export const refreshService = async ({ sessionId, refreshToken }: RefreshPayload
   };
 };
 
-export const getMeService = async ({ sessionId, accessToken }: GetMePayload) => {
+export const getMeService = async ({
+  sessionId,
+  accessToken,
+}: GetMePayload) => {
   if (!sessionId || !accessToken) {
     throw createHttpError(401, 'Not authenticated');
   }
