@@ -1,11 +1,12 @@
 import { RequestHandler } from 'express';
+import { CookieOptions } from 'express';
 import * as authServices from '../services/authService.js';
 import { ONE_DAY, ONE_MONTH } from '../helpers/constants.js';
 
-const cookieConfig = {
+const cookieConfig: CookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict' as const,
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
 };
 
 export const registerUserController: RequestHandler = async (
@@ -36,7 +37,10 @@ export const loginController: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body as { email: string; password: string };
 
-    const { user, session } = await authServices.loginService({ email, password });
+    const { user, session } = await authServices.loginService({
+      email,
+      password,
+    });
 
     res.cookie('refreshToken', session.refreshToken, {
       ...cookieConfig,
